@@ -1,17 +1,30 @@
-<x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Dashboard') }}
-        </h2>
-    </x-slot>
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>لوحة التحكم</title>
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+</head>
+<body>
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900">
-                    {{ __("You're logged in!") }}
-                </div>
-            </div>
-        </div>
+<header class="navbar">
+    <div class="logo">لوحة التحكم</div>
+    <div class="user-info">
+        <span>{{ Auth::user()->name ?? 'زائر' }}</span>
+        <a href="{{ route('logout') }}" class="logout">تسجيل الخروج</a>
     </div>
-</x-app-layout>
+</header>
+
+<main class="container">
+    <h2 class="dashboard-title">مرحباً بك في لوحة الإدارة</h2>
+
+    <div class="dashboard-buttons">
+        <a href="{{ route('employee.index') }}" class="dashboard-btn">👨‍🏫 إدارة المدرسين</a>
+        <a href="#" class="dashboard-btn">👨‍🎓 إدارة الطلاب</a>
+        <a href="#" class="dashboard-btn">💰 إدارة أقساط الطلاب</a>
+    </div>
+</main>
+
+</body>
+</html>
