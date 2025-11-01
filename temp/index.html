@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sho | Login</title>
+    <link rel="stylesheet" href="style.css" >
+    <link rel="stylesheet" href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css">
+</head>
+<body>
+    <main class="wrapper" role="main">
+        <form action="#" method="post" novalidate>
+            <h1>Login</h1>
+
+            <div class="input-box">
+                <label class="sr-only" for="login-username">Username</label>
+                <input id="login-username" name="username" type="text" placeholder="Username" autocomplete="username" required>
+                <i class='bx bxs-user' aria-hidden="true"></i>
+            </div>
+
+            <div class="input-box">
+                <label class="sr-only" for="login-password">Password</label>
+                <input id="login-password" name="password" type="password" placeholder="Password" autocomplete="current-password" required>
+                <i class='bx bxs-lock-alt' aria-hidden="true"></i>
+            </div>
+
+            <div class="remember-forgot">
+                <label for="remember">
+                    <input id="remember" name="remember" type="checkbox">
+                    Remember me
+                </label>
+                <a href="#">Forgot password?</a>
+            </div>
+
+            <button type="submit" class="btn">Login</button>
+
+            <div class="register-link">
+                <p>Don't have an account? <a href="register.html">Create one</a></p>
+            </div>
+        </form>
+    </main>
+</body>
+</html>

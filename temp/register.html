@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sho | Register</title>
+    <link rel="stylesheet" href="style.css" />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
+    />
+  </head>
+  <body>
+    <main class="wrapper" role="main">
+      <form action="#" method="post" novalidate>
+        <h1>Create Account</h1>
+
+        <div class="input-box">
+          <label class="sr-only" for="register-name">Full name</label>
+          <input
+            id="register-name"
+            name="fullName"
+            type="text"
+            placeholder="Full name"
+            autocomplete="name"
+            required
+          />
+          <i class="bx bxs-id-card" aria-hidden="true"></i>
+        </div>
+
+        <div class="input-box">
+          <label class="sr-only" for="register-email">Email</label>
+          <input
+            id="register-email"
+            name="email"
+            type="email"
+            placeholder="Email"
+            autocomplete="email"
+            required
+          />
+          <i class="bx bxs-envelope" aria-hidden="true"></i>
+        </div>
+
+        <div class="input-box">
+          <label class="sr-only" for="register-password">Password</label>
+          <input
+            id="register-password"
+            name="password"
+            type="password"
+            placeholder="Password"
+            autocomplete="new-password"
+            required
+          />
+          <i class="bx bxs-lock-alt" aria-hidden="true"></i>
+        </div>
+
+        <div class="input-box">
+          <label class="sr-only" for="register-confirm-password"
+            >Confirm password</label
+          >
+          <input
+            id="register-confirm-password"
+            name="confirmPassword"
+            type="password"
+            placeholder="Confirm password"
+            autocomplete="new-password"
+            required
+          />
+          <i class="bx bxs-lock" aria-hidden="true"></i>
+        </div>
+
+        <button type="submit" class="btn">Sign up</button>
+
+        <div class="register-link">
+          <p>Already have an account? <a href="index.html">Log in</a></p>
+        </div>
+      </form>
+    </main>
+  </body>
+</html>
