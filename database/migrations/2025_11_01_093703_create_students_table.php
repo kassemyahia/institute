@@ -16,7 +16,6 @@ return new class extends Migration
             $table->date('birth_date')->nullable();
             $table->string('address', 255)->nullable();
             $table->string('phone', 20)->nullable();
-            $table->foreignId('study_level_id')->constrained()->onDelete('cascade');
             $table->timestamps();
         });
     }

@@ -21,7 +21,7 @@
 
     <div class="dashboard-buttons">
         <a href="{{ route('employee.index') }}" class="dashboard-btn">👨‍🏫 إدارة المدرسين</a>
-        <a href="#" class="dashboard-btn">👨‍🎓 إدارة الطلاب</a>
+        <a href="{{ route('student.index') }}" class="dashboard-btn">👨‍🎓 إدارة الطلاب</a>
         <a href="#" class="dashboard-btn">💰 إدارة أقساط الطلاب</a>
     </div>
 </main>
