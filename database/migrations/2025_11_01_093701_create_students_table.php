@@ -12,10 +12,10 @@ return new class extends Migration
             $table->id();
             $table->string('first_name', 100);
             $table->string('last_name', 100);
-            $table->string('gender', 10)->nullable();
+            $table->foreignId('section_id')->constrained('sections')->cascadeOnDelete();
+            $table->boolean('is_fully_paid')->default(false);
+            $table->date('registration_date')->nullable();
             $table->date('birth_date')->nullable();
-            $table->string('address', 255)->nullable();
-            $table->string('phone', 20)->nullable();
             $table->timestamps();
         });
     }
