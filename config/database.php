@@ -97,6 +97,13 @@ return [
             'search_path' => 'public',
             'sslmode' => env('DB_SSLMODE', 'prefer'),
             'sticky' => false,
+            'dsn' => env('DB_DSN') ?: (env('DB_PG_ENDPOINT_ID') ? sprintf(
+                'pgsql:host=%s;port=%s;dbname=%s;options=endpoint%%3D%s',
+                env('DB_HOST', '127.0.0.1'),
+                env('DB_PORT', '5432'),
+                env('DB_DATABASE', 'laravel'),
+                rawurlencode(env('DB_PG_ENDPOINT_ID'))
+            ) : null),
 
             'options' => [
                 PDO::ATTR_EMULATE_PREPARES => true,
