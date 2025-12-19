@@ -1,51 +1,130 @@
-<x-auth-layout>
-    <main class="auth-wrapper" role="main">
-        <form method="POST" action="{{ route('register') }}" class="auth-form" novalidate>
-            @csrf
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sho | Register</title>
 
-            <h1>{{ __('Create Account') }}</h1>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
+      rel="stylesheet"
+    />
+  </head>
 
-            <div class="input-box">
-                <label class="sr-only" for="name">{{ __('Full name') }}</label>
-                <input id="name" name="name" type="text" placeholder="{{ __('Full name') }}" value="{{ old('name') }}" required autofocus autocomplete="name">
-                <i class='bx bxs-id-card' aria-hidden="true"></i>
-                @error('name')
-                    <div class="validation-errors">{{ $message }}</div>
-                @enderror
-            </div>
+  <body
+    class="d-flex align-items-center justify-content-end min-vh-100"
+    style="
+      background: url('{{ asset('assets/images/images.jpeg') }}') center / cover
+        no-repeat;
+      padding: clamp(24px, 6vw, 96px);
+    "
+  >
+    <main class="container-fluid">
+      <div class="row justify-content-end">
+        <div class="col-12 col-sm-10 col-md-6 col-lg-4">
+          <div
+            class="p-4 p-md-5 text-white rounded-4 shadow-lg"
+            style="background: rgba(0, 0, 0, 0.45); backdrop-filter: blur(12px)"
+          >
+            <h1 class="text-center mb-4 fw-semibold">Register</h1>
 
-            <div class="input-box">
-                <label class="sr-only" for="email">{{ __('Email') }}</label>
-                <input id="email" name="email" type="email" placeholder="{{ __('Email') }}" value="{{ old('email') }}" required autocomplete="email">
-                <i class='bx bxs-envelope' aria-hidden="true"></i>
-                @error('email')
-                    <div class="validation-errors">{{ $message }}</div>
-                @enderror
-            </div>
+            <form method="POST" action="{{ route('register') }}" novalidate>
+              @csrf
+              <div class="mb-4">
+                <div class="input-group input-group-lg">
+                  <input
+                    type="text"
+                    name="name"
+                    class="form-control bg-transparent text-white border border-light rounded-pill"
+                    placeholder="Full Name"
+                    autocomplete="name"
+                    required
+                  />
+                  <span
+                    class="input-group-text bg-transparent border border-light rounded-pill text-white"
+                  >
+                    <i class="bx bxs-user"></i>
+                  </span>
+                </div>
+              </div>
 
-            <div class="input-box">
-                <label class="sr-only" for="password">{{ __('Password') }}</label>
-                <input id="password" name="password" type="password" placeholder="{{ __('Password') }}" required autocomplete="new-password">
-                <i class='bx bxs-lock-alt' aria-hidden="true"></i>
-                @error('password')
-                    <div class="validation-errors">{{ $message }}</div>
-                @enderror
-            </div>
+              <div class="mb-4">
+                <div class="input-group input-group-lg">
+                  <input
+                    type="email"
+                    name="email"
+                    class="form-control bg-transparent text-white border border-light rounded-pill"
+                    placeholder="Email"
+                    autocomplete="email"
+                    required
+                  />
+                  <span
+                    class="input-group-text bg-transparent border border-light rounded-pill text-white"
+                  >
+                    <i class="bx bxs-envelope"></i>
+                  </span>
+                </div>
+              </div>
 
-            <div class="input-box">
-                <label class="sr-only" for="password_confirmation">{{ __('Confirm password') }}</label>
-                <input id="password_confirmation" name="password_confirmation" type="password" placeholder="{{ __('Confirm password') }}" required autocomplete="new-password">
-                <i class='bx bxs-lock' aria-hidden="true"></i>
-                @error('password_confirmation')
-                    <div class="validation-errors">{{ $message }}</div>
-                @enderror
-            </div>
+              <div class="mb-4">
+                <div class="input-group input-group-lg">
+                  <input
+                    type="password"
+                    name="password"
+                    class="form-control bg-transparent text-white border border-light rounded-pill"
+                    placeholder="Password"
+                    autocomplete="new-password"
+                    required
+                  />
+                  <span
+                    class="input-group-text bg-transparent border border-light rounded-pill text-white"
+                  >
+                    <i class="bx bxs-lock-alt"></i>
+                  </span>
+                </div>
+              </div>
 
-            <button type="submit" class="btn">{{ __('Sign up') }}</button>
+              <div class="mb-4">
+                <div class="input-group input-group-lg">
+                  <input
+                    type="password"
+                    name="password_confirmation"
+                    class="form-control bg-transparent text-white border border-light rounded-pill"
+                    placeholder="Confirm Password"
+                    autocomplete="new-password"
+                    required
+                  />
+                  <span
+                    class="input-group-text bg-transparent border border-light rounded-pill text-white"
+                  >
+                    <i class="bx bxs-lock-alt"></i>
+                  </span>
+                </div>
+              </div>
 
-            <div class="register-link">
-                <p>{{ __('Already have an account?') }} <a href="{{ route('login') }}">{{ __('Log in') }}</a></p>
-            </div>
-        </form>
+              <button
+                class="btn btn-light w-100 rounded-pill py-3 fw-semibold"
+                type="submit"
+              >
+                Sign Up
+              </button>
+            </form>
+
+            <p class="text-center mt-4 mb-0">
+              Already have an account?
+              <a
+                href="{{ route('login') }}"
+                class="text-white text-decoration-underline"
+                >Sign In</a
+              >
+            </p>
+          </div>
+        </div>
+      </div>
     </main>
-</x-auth-layout>
+  </body>
+</html>

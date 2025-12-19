@@ -1,8 +1,10 @@
 <?php
 
 namespace Database\Factories;
-use Illuminate\Database\Eloquent\Factories\Factory;
+
+use App\Models\Section;
 use App\Models\Student;
+use Illuminate\Database\Eloquent\Factories\Factory;
 class StudentFactory extends Factory
 {
     protected $model = Student::class;
@@ -10,10 +12,11 @@ class StudentFactory extends Factory
     {
 
         return [
-            'first_name' => $this->faker->firstName(),
-            'last_name'  => $this->faker->lastName(),
-            'gender'     => $this->faker->randomElement(['male', 'female']),
-            'birth_date' => $this->faker->date('Y-m-d', '2015-01-01'),
+            'first_name' => \fake()->firstName(),
+            'last_name'  => \fake()->lastName(),
+            'gender'     => \fake()->randomElement(['male', 'female']),
+            'birth_date' => \fake()->date('Y-m-d', '2015-01-01'),
+            'section_id' => Section::factory(),
         ];
     }
 }

@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" dir="rtl">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Employees | Sho</title>
+    <title>Employee Details | Sho</title>
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
       rel="stylesheet"
@@ -13,11 +13,7 @@
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
       <div class="container">
         <a class="navbar-brand" href="{{ route('home') }}">
-          <img
-            src="{{ asset('assets/images/logo-light.png') }}"
-            height="40"
-            alt="Sho"
-          />
+          <img src="{{ asset('assets/images/logo-light.png') }}" height="40" alt="Sho" />
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
           <span class="navbar-toggler-icon"></span>
@@ -40,32 +36,37 @@
     </nav>
 
     <div class="container mt-5 pt-4">
-      <div class="d-flex justify-content-between align-items-center mb-3">
-        <h3>Employees</h3>
-        <a href="{{ route('employee.create') }}" class="btn btn-dark">+ Add Employee</a>
-      </div>
+      <div class="row justify-content-center">
+        <div class="col-lg-6">
+          <div class="card shadow-sm">
+            <div class="card-body">
+              <h4 class="card-title text-center mb-4">معلومات المدرّس</h4>
 
-      <div class="table-responsive">
-        <table class="table table-striped table-hover align-middle text-center">
-          <thead class="table-dark">
-            <tr>
-              <th>ID</th>
-              <th>First Name</th>
-              <th>Last Name</th>
-              <th>Job</th>
-            </tr>
-          </thead>
-          <tbody>
-            @foreach ($employees as $employee)
-              <tr>
-                <td>{{ $employee->id }}</td>
-                <td>{{ $employee->first_name }}</td>
-                <td>{{ $employee->last_name }}</td>
-                <td>{{ $employee->job_title }}</td>
-              </tr>
-            @endforeach
-          </tbody>
-        </table>
+              <ul class="list-group list-group-flush">
+                <li class="list-group-item d-flex justify-content-between">
+                  <strong>الاسم</strong>
+                  <span>{{ $employee->name }}</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between">
+                  <strong>المادة</strong>
+                  <span>{{ $employee->subject }}</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between">
+                  <strong>رقم الهاتف</strong>
+                  <span>{{ $employee->number }}</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between">
+                  <strong>البريد الإلكتروني</strong>
+                  <span>{{ $employee->email }}</span>
+                </li>
+              </ul>
+
+              <div class="text-center mt-4">
+                <a href="{{ route('employee.index') }}" class="btn btn-secondary px-4">رجوع</a>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
 

@@ -12,12 +12,12 @@ class EmployeeFactory extends Factory
     public function definition()
     {
         return [
-            'name'    => $this->faker->name(),
-            'subject' => $this->faker->randomElement([
+            'name'    => \fake()->name(),
+            'subject' => \fake()->randomElement([
                 'Math', 'Science', 'English', 'History', 'Physics', 'Chemistry'
             ]),
-            'number'  => $this->faker->phoneNumber(),
-            'email'   => $this->faker->unique()->safeEmail(),
+            'number'  => \fake()->phoneNumber(),
+            'email'   => \fake()->unique()->safeEmail(),
         ];
     }
 }
