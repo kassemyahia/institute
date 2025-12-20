@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Sho | Login</title>
+    <title>Welcome</title>
 
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
@@ -27,82 +27,32 @@
       <div class="row justify-content-end">
         <div class="col-12 col-sm-10 col-md-6 col-lg-4">
           <div
-            class="p-4 p-md-5 text-white rounded-4 shadow-lg"
+            class="p-4 p-md-5 text-white rounded-4 shadow-lg text-center"
             style="background: rgba(0, 0, 0, 0.45); backdrop-filter: blur(12px)"
           >
-            <h1 class="text-center mb-4 fw-semibold">Login</h1>
+            <div class="mb-4">
+              <i class="bx bxs-rocket bx-lg"></i>
+            </div>
+            <h1 class="fw-semibold mb-3">Welcome to WebInstitute</h1>
+            <p class="mb-4 text-white-50">
+              Seamlessly manage your learning experience. Log in if you already
+              have an account or create a new one to get started.
+            </p>
 
-            <form method="POST" action="{{ route('login') }}" novalidate>
-              @csrf
-              <div class="mb-4">
-                <div class="input-group input-group-lg">
-                  <input
-                    type="text"
-                    name="email"
-                    class="form-control bg-transparent text-white border border-light rounded-pill"
-                    placeholder="Email"
-                    autocomplete="username"
-                    required
-                  />
-                  <span
-                    class="input-group-text bg-transparent border border-light rounded-pill text-white"
-                  >
-                    <i class="bx bxs-user"></i>
-                  </span>
-                </div>
-              </div>
-
-              <div class="mb-4">
-                <div class="input-group input-group-lg">
-                  <input
-                    type="password"
-                    name="password"
-                    class="form-control bg-transparent text-white border border-light rounded-pill"
-                    placeholder="Password"
-                    autocomplete="current-password"
-                    required
-                  />
-                  <span
-                    class="input-group-text bg-transparent border border-light rounded-pill text-white"
-                  >
-                    <i class="bx bxs-lock-alt"></i>
-                  </span>
-                </div>
-              </div>
-
-              <div class="d-flex justify-content-between align-items-center mb-4">
-                <div class="form-check d-flex align-items-center gap-2">
-                  <input
-                    class="form-check-input"
-                    type="checkbox"
-                    value=""
-                    id="rememberMe"
-                  />
-                  <label class="form-check-label text-white" for="rememberMe">
-                    Remember me
-                  </label>
-                </div>
-                <a href="#" class="text-white text-decoration-none"
-                  >Forgot password?</a
-                >
-              </div>
-
-              <button
-                class="btn btn-light w-100 rounded-pill py-3 fw-semibold"
-                type="submit"
+            <div class="d-grid gap-3">
+              <a
+                href="{{ route('login') }}"
+                class="btn btn-light rounded-pill py-2 fw-semibold shadow"
               >
-                Sign In
-              </button>
-            </form>
-
-            <p class="text-center mt-4 mb-0">
-              Don't have an account?
+                Login
+              </a>
               <a
                 href="{{ route('register') }}"
-                class="text-white text-decoration-underline"
-                >Sign Up</a
+                class="btn btn-outline-light rounded-pill py-2 fw-semibold"
               >
-            </p>
+                Sign up
+              </a>
+            </div>
           </div>
         </div>
       </div>

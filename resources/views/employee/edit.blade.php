@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Add Employee | Sho</title>
+    <title>Edit Employee | Sho</title>
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
       rel="stylesheet"
@@ -39,38 +39,39 @@
     <div class="container mt-5 pt-4">
       <div class="card shadow-sm">
         <div class="card-body">
-          <h4 class="card-title text-center mb-4">Add Employee</h4>
+          <h4 class="card-title text-center mb-4">Edit Employee</h4>
 
-          <form method="POST" action="{{ route('employee.store') }}">
+          <form method="POST" action="{{ route('employee.update', $employee) }}">
             @csrf
+            @method('PUT')
             <div class="mb-3">
               <label class="form-label">First Name</label>
-              <input type="text" name="first_name" class="form-control" value="{{ old('first_name') }}" required />
+              <input type="text" name="first_name" class="form-control" value="{{ old('first_name', $employee->first_name) }}" required />
             </div>
 
             <div class="mb-3">
               <label class="form-label">Last Name</label>
-              <input type="text" name="last_name" class="form-control" value="{{ old('last_name') }}" required />
+              <input type="text" name="last_name" class="form-control" value="{{ old('last_name', $employee->last_name) }}" required />
             </div>
 
             <div class="mb-3">
               <label class="form-label">Job Title</label>
-              <input type="text" name="job_title" class="form-control" value="{{ old('job_title') }}" />
+              <input type="text" name="job_title" class="form-control" value="{{ old('job_title', $employee->job_title) }}" />
             </div>
 
             <div class="mb-3">
               <label class="form-label">Salary</label>
-              <input type="number" min="0" name="salary" class="form-control" value="{{ old('salary') }}" />
+              <input type="number" min="0" name="salary" class="form-control" value="{{ old('salary', $employee->salary) }}" />
             </div>
 
             <div class="mb-3">
               <label class="form-label">Birth Date</label>
-              <input type="date" name="birth_date" class="form-control" value="{{ old('birth_date') }}" />
+              <input type="date" name="birth_date" class="form-control" value="{{ old('birth_date', optional($employee->birth_date)->toDateString()) }}" />
             </div>
 
             <div class="text-center">
               <button class="btn btn-dark px-4" type="submit">Save</button>
-              <a href="{{ route('employee.index') }}" class="btn btn-danger px-4">Cancel</a>
+              <a href="{{ route('employee.show', $employee) }}" class="btn btn-danger px-4">Cancel</a>
             </div>
           </form>
         </div>

@@ -10,12 +10,9 @@ return new class extends Migration
     {
         Schema::create('mobile_numbers', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('owner_id');
-            $table->enum('owner_type', ['student', 'employee']);
+            $table->morphs('owner');
             $table->string('phone_number', 20);
             $table->timestamps();
-
-            $table->index(['owner_id', 'owner_type']);
         });
     }
 

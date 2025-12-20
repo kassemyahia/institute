@@ -27,7 +27,8 @@
             <li class="nav-item"><a class="nav-link" href="{{ route('home') }}">Home</a></li>
             <li class="nav-item"><a class="nav-link" href="{{ route('employee.index') }}">Employees</a></li>
             <li class="nav-item"><a class="nav-link active" href="{{ route('student.index') }}">Students</a></li>
-            <li class="nav-item"><a class="nav-link" href="#">Payments</a></li>
+            <li class="nav-item"><a class="nav-link" href="{{ route('installment.index') }}">Payments</a></li>
+            <li class="nav-item"><a class="nav-link" href="#">About</a></li>
             <li class="nav-item">
               <form method="POST" action="{{ route('logout') }}">
                 @csrf
@@ -45,6 +46,19 @@
         <a href="{{ route('student.create') }}" class="btn btn-dark">+ Add Student</a>
       </div>
 
+      <form method="GET" action="{{ route('student.index') }}" class="mb-3">
+        <div class="input-group">
+          <input
+            type="search"
+            name="q"
+            value="{{ $search ?? '' }}"
+            class="form-control"
+            placeholder="Search students by name or gender"
+          />
+          <button class="btn btn-outline-dark" type="submit">Search</button>
+        </div>
+      </form>
+
       <div class="table-responsive">
         <table class="table table-striped table-hover text-center align-middle">
           <thead class="table-dark">
@@ -54,6 +68,11 @@
               <th>Last name</th>
               <th>Gender</th>
               <th>Birth date</th>
+              <th>Stage</th>
+              <th>Full Price</th>
+              <th>Paid</th>
+              <th>Left</th>
+              <th>Actions</th>
             </tr>
           </thead>
           <tbody>
@@ -64,6 +83,13 @@
                 <td>{{ $student->last_name }}</td>
                 <td>{{ $student->gender }}</td>
                 <td>{{ $student->birth_date }}</td>
+                <td>{{ optional($student->stage)->name }}</td>
+                <td>{{ $student->full_price }}</td>
+                <td>{{ $student->total_paid ?? 0 }}</td>
+                <td>{{ max(0, ($student->full_price ?? 0) - ($student->total_paid ?? 0)) }}</td>
+                <td>
+                  <a href="{{ route('student.show', $student) }}" class="btn btn-sm btn-outline-primary">View</a>
+                </td>
               </tr>
             @endforeach
           </tbody>

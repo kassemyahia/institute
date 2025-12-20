@@ -14,6 +14,7 @@ class SectionFactory extends Factory
         return [
             'name' => \fake()->unique()->word(),
             'grade_level' => \fake()->randomElement(['first', 'second', 'third']),
+            'stage_id' => \App\Models\Stage::factory(),
         ];
     }
 }

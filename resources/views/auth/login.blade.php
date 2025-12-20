@@ -3,8 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Register</title>
-
+    <title>Login | WebInstitute</title>
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
       rel="stylesheet"
@@ -14,12 +13,11 @@
       rel="stylesheet"
     />
   </head>
-
   <body
     class="d-flex align-items-center justify-content-end min-vh-100"
     style="
-      background: url('{{ asset('assets/images/images.jpeg') }}') center / cover
-        no-repeat;
+      background: url('{{ asset('assets/images/images.jpeg') }}') center /
+        cover no-repeat;
       padding: clamp(24px, 6vw, 96px);
     "
   >
@@ -30,18 +28,19 @@
             class="p-4 p-md-5 text-white rounded-4 shadow-lg"
             style="background: rgba(0, 0, 0, 0.45); backdrop-filter: blur(12px)"
           >
-            <h1 class="text-center mb-4 fw-semibold">Register</h1>
+            <h1 class="text-center mb-4 fw-semibold">Login</h1>
 
-            <form method="POST" action="{{ route('register') }}" novalidate>
+            <form method="POST" action="{{ route('login') }}" novalidate>
               @csrf
               <div class="mb-4">
                 <div class="input-group input-group-lg">
                   <input
-                    type="text"
-                    name="name"
+                    type="email"
+                    name="email"
                     class="form-control bg-transparent text-white border border-light rounded-pill"
-                    placeholder="Full Name"
-                    autocomplete="name"
+                    placeholder="Email"
+                    value="{{ old('email') }}"
+                    autocomplete="username"
                     required
                   />
                   <span
@@ -50,24 +49,9 @@
                     <i class="bx bxs-user"></i>
                   </span>
                 </div>
-              </div>
-
-              <div class="mb-4">
-                <div class="input-group input-group-lg">
-                  <input
-                    type="email"
-                    name="email"
-                    class="form-control bg-transparent text-white border border-light rounded-pill"
-                    placeholder="Email"
-                    autocomplete="email"
-                    required
-                  />
-                  <span
-                    class="input-group-text bg-transparent border border-light rounded-pill text-white"
-                  >
-                    <i class="bx bxs-envelope"></i>
-                  </span>
-                </div>
+                @error('email')
+                  <small class="text-danger d-block mt-1">{{ $message }}</small>
+                @enderror
               </div>
 
               <div class="mb-4">
@@ -77,7 +61,7 @@
                     name="password"
                     class="form-control bg-transparent text-white border border-light rounded-pill"
                     placeholder="Password"
-                    autocomplete="new-password"
+                    autocomplete="current-password"
                     required
                   />
                   <span
@@ -86,40 +70,39 @@
                     <i class="bx bxs-lock-alt"></i>
                   </span>
                 </div>
+                @error('password')
+                  <small class="text-danger d-block mt-1">{{ $message }}</small>
+                @enderror
               </div>
 
-              <div class="mb-4">
-                <div class="input-group input-group-lg">
+              <div class="d-flex justify-content-between align-items-center mb-4">
+                <label class="form-check-label text-white d-flex gap-2 align-items-center">
                   <input
-                    type="password"
-                    name="password_confirmation"
-                    class="form-control bg-transparent text-white border border-light rounded-pill"
-                    placeholder="Confirm Password"
-                    autocomplete="new-password"
-                    required
+                    class="form-check-input"
+                    type="checkbox"
+                    name="remember"
                   />
-                  <span
-                    class="input-group-text bg-transparent border border-light rounded-pill text-white"
-                  >
-                    <i class="bx bxs-lock-alt"></i>
-                  </span>
-                </div>
+                  Remember me
+                </label>
+                <a href="{{ route('password.request') }}" class="text-white text-decoration-none">
+                  Forgot password?
+                </a>
               </div>
 
               <button
                 class="btn btn-light w-100 rounded-pill py-3 fw-semibold"
                 type="submit"
               >
-                Sign Up
+                Sign In
               </button>
             </form>
 
             <p class="text-center mt-4 mb-0">
-              Already have an account?
+              Don't have an account?
               <a
-                href="{{ route('login') }}"
+                href="{{ route('register') }}"
                 class="text-white text-decoration-underline"
-                >Sign In</a
+                >Sign Up</a
               >
             </p>
           </div>

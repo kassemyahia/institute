@@ -17,6 +17,7 @@ return new class extends Migration
             $table->boolean('is_fully_paid')->default(false);
             $table->date('registration_date')->nullable();
             $table->date('birth_date')->nullable();
+            $table->decimal('full_price', 10, 2)->default(0);
             $table->timestamps();
         });
     }

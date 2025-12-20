@@ -44,7 +44,7 @@
               >
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Payments</a>
+              <a class="nav-link" href="{{ route('installment.index') }}">Payments</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="#">About</a>
@@ -120,7 +120,8 @@
             <div class="card-body">
               <h5 class="card-title">Payments</h5>
               <p class="card-text">Manage payments</p>
-              <a href="#" class="btn btn-secondary btn-sm">Coming Soon</a>
+              <a href="{{ route('installment.index') }}" class="btn btn-dark btn-sm">View Payments</a>
+              <a href="{{ route('installment.create') }}" class="btn btn-outline-dark btn-sm">Add Payment</a>
             </div>
           </div>
         </div>

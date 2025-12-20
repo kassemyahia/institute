@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Employees | Sho</title>
+    <title>Payments | WebInstitute</title>
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
       rel="stylesheet"
@@ -13,11 +13,7 @@
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
       <div class="container">
         <a class="navbar-brand" href="{{ route('home') }}">
-          <img
-            src="{{ asset('assets/images/logo-light.png') }}"
-            height="40"
-            alt="Sho"
-          />
+          <img src="{{ asset('assets/images/logo-light.png') }}" height="40" alt="WebInstitute" />
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
           <span class="navbar-toggler-icon"></span>
@@ -25,9 +21,9 @@
         <div class="collapse navbar-collapse" id="mainNav">
           <ul class="navbar-nav ms-auto gap-2 align-items-center">
             <li class="nav-item"><a class="nav-link" href="{{ route('home') }}">Home</a></li>
-            <li class="nav-item"><a class="nav-link active" href="{{ route('employee.index') }}">Employees</a></li>
+            <li class="nav-item"><a class="nav-link" href="{{ route('employee.index') }}">Employees</a></li>
             <li class="nav-item"><a class="nav-link" href="{{ route('student.index') }}">Students</a></li>
-            <li class="nav-item"><a class="nav-link" href="{{ route('installment.index') }}">Payments</a></li>
+            <li class="nav-item"><a class="nav-link active" href="{{ route('installment.index') }}">Payments</a></li>
             <li class="nav-item"><a class="nav-link" href="#">About</a></li>
             <li class="nav-item">
               <form method="POST" action="{{ route('logout') }}">
@@ -42,18 +38,18 @@
 
     <div class="container mt-5 pt-4">
       <div class="d-flex justify-content-between align-items-center mb-3">
-        <h3>Employees</h3>
-        <a href="{{ route('employee.create') }}" class="btn btn-dark">+ Add Employee</a>
+        <h3>Payments</h3>
+        <a href="{{ route('installment.create') }}" class="btn btn-dark">+ Add Payment</a>
       </div>
 
-      <form method="GET" action="{{ route('employee.index') }}" class="mb-3">
+      <form method="GET" action="{{ route('installment.index') }}" class="mb-3">
         <div class="input-group">
           <input
             type="search"
             name="q"
             value="{{ $search ?? '' }}"
             class="form-control"
-            placeholder="Search employees by name or job"
+            placeholder="Search by student or date"
           />
           <button class="btn btn-outline-dark" type="submit">Search</button>
         </div>
@@ -63,25 +59,25 @@
         <table class="table table-striped table-hover align-middle text-center">
           <thead class="table-dark">
             <tr>
-              <th>ID</th>
-              <th>First Name</th>
-              <th>Last Name</th>
-              <th>Job</th>
-              <th>Actions</th>
+              <th>#</th>
+              <th>Student</th>
+              <th>Amount Paid</th>
+              <th>Paid At</th>
             </tr>
           </thead>
           <tbody>
-            @foreach ($employees as $employee)
+            @forelse($installments as $installment)
               <tr>
-                <td>{{ $employee->id }}</td>
-                <td>{{ $employee->first_name }}</td>
-                <td>{{ $employee->last_name }}</td>
-                <td>{{ $employee->job_title }}</td>
-                <td>
-                  <a href="{{ route('employee.show', $employee) }}" class="btn btn-sm btn-outline-primary">View</a>
-                </td>
+                <td>{{ $installment->id }}</td>
+                <td>{{ optional($installment->student)->first_name }} {{ optional($installment->student)->last_name }}</td>
+                <td>{{ $installment->amount_paid }}</td>
+                <td>{{ $installment->paid_at->toDateString() }}</td>
               </tr>
-            @endforeach
+            @empty
+              <tr>
+                <td colspan="4" class="text-muted">No payments recorded yet.</td>
+              </tr>
+            @endforelse
           </tbody>
         </table>
       </div>

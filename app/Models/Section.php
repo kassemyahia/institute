@@ -9,5 +9,20 @@ class Section extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'grade_level'];
+    protected $fillable = ['name', 'grade_level', 'stage_id'];
+
+    public function students()
+    {
+        return $this->hasMany(Student::class);
+    }
+
+    public function subjects()
+    {
+        return $this->hasMany(Subject::class);
+    }
+
+    public function stage()
+    {
+        return $this->belongsTo(Stage::class);
+    }
 }
