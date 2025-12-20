@@ -1,15 +1,16 @@
 # Base PHP image with needed extensions
-FROM php:8.2-cli-bullseye AS php-base
+FROM php:8.2-cli-bookworm AS php-base
 WORKDIR /var/www/html
 
 RUN apt-get update && apt-get install -y \
-        git \
-        unzip \
-        libzip-dev \
-        libpng-dev \
-        libonig-dev \
-        libxml2-dev \
-        libpq-dev \
+    git \
+    unzip \
+    libzip-dev \
+    libpng-dev \
+    libonig-dev \
+    libxml2-dev \
+    libpq-dev \
+    postgresql-client-15 \
     && docker-php-ext-install pdo_mysql pdo_pgsql zip bcmath \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
