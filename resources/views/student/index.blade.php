@@ -47,15 +47,32 @@
       </div>
 
       <form method="GET" action="{{ route('student.index') }}" class="mb-3">
-        <div class="input-group">
-          <input
-            type="search"
-            name="q"
-            value="{{ $search ?? '' }}"
-            class="form-control"
-            placeholder="Search students by name or gender"
-          />
-          <button class="btn btn-outline-dark" type="submit">Search</button>
+        <div class="row g-2">
+          <div class="col-lg-4">
+            <input
+              type="search"
+              name="q"
+              value="{{ $search ?? '' }}"
+              class="form-control"
+              placeholder="Search students by name or gender"
+            />
+          </div>
+          <div class="col-lg-3">
+            <select name="stage_id" id="stageFilter" class="form-select">
+              <option value="">All stages</option>
+              @foreach ($stages as $stage)
+                <option value="{{ $stage->id }}" @selected(($stageId ?? '') == $stage->id)>{{ $stage->name }}</option>
+              @endforeach
+            </select>
+          </div>
+          <div class="col-lg-3">
+            <select name="section_id" id="sectionFilter" class="form-select" disabled>
+              <option value="">Select a stage first</option>
+            </select>
+          </div>
+          <div class="col-lg-2 d-grid">
+            <button class="btn btn-outline-dark" type="submit">Filter</button>
+          </div>
         </div>
       </form>
 
@@ -98,5 +115,54 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+      (function () {
+        const stageSelect = document.getElementById('stageFilter');
+        const sectionSelect = document.getElementById('sectionFilter');
+        const sections = @json($sectionOptions);
+        const selectedSectionId = '{{ $sectionId ?? '' }}';
+
+        function renderSections(stageId) {
+          sectionSelect.innerHTML = '';
+          if (!stageId) {
+            sectionSelect.disabled = true;
+            const placeholder = document.createElement('option');
+            placeholder.value = '';
+            placeholder.textContent = 'Select a stage first';
+            sectionSelect.appendChild(placeholder);
+            return;
+          }
+
+          sectionSelect.disabled = false;
+          const defaultOption = document.createElement('option');
+          defaultOption.value = '';
+          defaultOption.textContent = 'All sections';
+          sectionSelect.appendChild(defaultOption);
+
+          sections
+            .filter((section) => String(section.stage_id) === String(stageId))
+            .forEach((section) => {
+              const opt = document.createElement('option');
+              opt.value = section.id;
+              opt.textContent = section.name;
+              sectionSelect.appendChild(opt);
+            });
+        }
+
+        renderSections(stageSelect.value);
+
+        if (stageSelect.value && selectedSectionId) {
+          Array.from(sectionSelect.options).forEach((opt) => {
+            if (opt.value === selectedSectionId) {
+              opt.selected = true;
+            }
+          });
+        }
+
+        stageSelect.addEventListener('change', (e) => {
+          renderSections(e.target.value);
+        });
+      })();
+    </script>
   </body>
 </html>

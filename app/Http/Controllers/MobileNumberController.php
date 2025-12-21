@@ -42,6 +42,6 @@ class MobileNumberController extends Controller
 
         MobileNumber::create($validated);
 
-        return redirect()->route('mobile_number.index')->with('success', 'تم إضافة الرقم بنجاح ✅');
+        return redirect()->route('mobile_number.index')->with('success', 'Phone number added successfully ✅');
     }
 }

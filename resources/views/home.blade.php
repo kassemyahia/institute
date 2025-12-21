@@ -74,10 +74,10 @@
         <p class="text-muted">
           Your gateway to quality education and management
         </p>
-      </div>
+        </div>
 
       <div class="row g-4">
-        <div class="col-md-4">
+        <div class="col-lg-3 col-md-6">
           <div class="card shadow-sm h-100">
             <div class="card-body">
               <h5 class="card-title">Employees</h5>
@@ -96,7 +96,7 @@
           </div>
         </div>
 
-        <div class="col-md-4">
+        <div class="col-lg-3 col-md-6">
           <div class="card shadow-sm h-100">
             <div class="card-body">
               <h5 class="card-title">Students</h5>
@@ -115,13 +115,37 @@
           </div>
         </div>
 
-        <div class="col-md-4">
+        <div class="col-lg-3 col-md-6">
           <div class="card shadow-sm h-100">
             <div class="card-body">
               <h5 class="card-title">Payments</h5>
               <p class="card-text">Manage payments</p>
               <a href="{{ route('installment.index') }}" class="btn btn-dark btn-sm">View Payments</a>
               <a href="{{ route('installment.create') }}" class="btn btn-outline-dark btn-sm">Add Payment</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6">
+          <div class="card shadow-sm h-100">
+            <div class="card-body d-flex flex-column">
+              <h5 class="card-title">Class Rooms</h5>
+              <p class="card-text">Browse stages and sections.</p>
+              <div class="mt-auto">
+                <a href="{{ route('classrooms.index') }}" class="btn btn-dark btn-sm">Open</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6">
+          <div class="card shadow-sm h-100">
+            <div class="card-body d-flex flex-column">
+              <h5 class="card-title">Subjects</h5>
+              <p class="card-text">View and create subjects.</p>
+              <div class="mt-auto">
+                <a href="{{ route('subject.index') }}" class="btn btn-dark btn-sm">Open</a>
+              </div>
             </div>
           </div>
         </div>

@@ -11,17 +11,30 @@ class EmployeeController extends Controller
     public function index(Request $request)
     {
         $search = $request->query('q');
+        $jobTitle = $request->query('job');
 
         $employees = Employee::query()
             ->when($search, function ($query) use ($search) {
-                $query->where('first_name', 'ILIKE', "%{$search}%")
-                    ->orWhere('last_name', 'ILIKE', "%{$search}%")
-                    ->orWhere('job_title', 'ILIKE', "%{$search}%");
+                $query->where(function ($subQuery) use ($search) {
+                    $subQuery->where('first_name', 'ILIKE', "%{$search}%")
+                        ->orWhere('last_name', 'ILIKE', "%{$search}%")
+                        ->orWhere('job_title', 'ILIKE', "%{$search}%");
+                });
+            })
+            ->when($jobTitle, function ($query) use ($jobTitle) {
+                $query->where('job_title', $jobTitle);
             })
             ->orderBy('id', 'desc')
             ->get();
 
-        return view('employee.index', compact('employees', 'search'));
+        $jobTitles = Employee::query()
+            ->select('job_title')
+            ->whereNotNull('job_title')
+            ->distinct()
+            ->orderBy('job_title')
+            ->pluck('job_title');
+
+        return view('employee.index', compact('employees', 'search', 'jobTitle', 'jobTitles'));
     }
 
     public function show(Employee $employee)
@@ -70,6 +83,6 @@ class EmployeeController extends Controller
 
         Employee::create($validated);
 
-        return redirect()->route('employee.index')->with('success', 'تمت إضافة الموظف بنجاح ✅');
+        return redirect()->route('employee.index')->with('success', 'Employee added successfully ✅');
     }
 }

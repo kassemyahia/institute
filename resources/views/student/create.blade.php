@@ -131,8 +131,23 @@
           }));
 
         function renderSections(stageId) {
-          sectionSelect.innerHTML = '<option value=\"\">Select section</option>';
-          const filtered = stageId ? sections.filter(s => s.stageId === stageId) : sections;
+          sectionSelect.innerHTML = '';
+          if (!stageId) {
+            sectionSelect.disabled = true;
+            const placeholder = document.createElement('option');
+            placeholder.value = '';
+            placeholder.textContent = 'Select a stage first';
+            sectionSelect.appendChild(placeholder);
+            return;
+          }
+
+          sectionSelect.disabled = false;
+          const defaultOption = document.createElement('option');
+          defaultOption.value = '';
+          defaultOption.textContent = 'Select section';
+          sectionSelect.appendChild(defaultOption);
+
+          const filtered = sections.filter(s => s.stageId === stageId);
           filtered.forEach(sec => {
             const opt = document.createElement('option');
             opt.value = sec.id;

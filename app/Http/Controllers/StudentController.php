@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Student;
 use App\Models\Section;
+use App\Models\Stage;
 
 class StudentController extends Controller
 {
@@ -12,19 +13,43 @@ class StudentController extends Controller
     public function index(Request $request)
     {
         $search = $request->query('q');
+        $stageId = $request->query('stage_id');
+        $sectionId = $request->query('section_id');
 
         $students = Student::query()
             ->with(['section', 'stage'])
             ->withSum('installments as total_paid', 'amount_paid')
             ->when($search, function ($query) use ($search) {
-                $query->where('first_name', 'ILIKE', "%{$search}%")
-                    ->orWhere('last_name', 'ILIKE', "%{$search}%")
-                    ->orWhere('gender', 'ILIKE', "%{$search}%");
+                $query->where(function ($subQuery) use ($search) {
+                    $subQuery->where('first_name', 'ILIKE', "%{$search}%")
+                        ->orWhere('last_name', 'ILIKE', "%{$search}%")
+                        ->orWhere('gender', 'ILIKE', "%{$search}%");
+                });
+            })
+            ->when($stageId, function ($query) use ($stageId) {
+                $query->where('stage_id', $stageId);
+            })
+            ->when($sectionId && $stageId, function ($query) use ($sectionId) {
+                $query->where('section_id', $sectionId);
             })
             ->orderBy('id', 'desc')
             ->get();
 
-        return view('student.index', compact('students', 'search'));
+        $stages = Stage::with(['sections' => function ($query) {
+                $query->orderBy('name');
+            }])
+            ->orderBy('name')
+            ->get();
+        $sections = Section::orderBy('name')->get();
+        $sectionOptions = $sections->map(function ($section) {
+            return [
+                'id' => $section->id,
+                'name' => $section->name,
+                'stage_id' => $section->stage_id,
+            ];
+        });
+
+        return view('student.index', compact('students', 'search', 'stageId', 'sectionId', 'stages', 'sections', 'sectionOptions'));
     }
 
     public function show(Student $student)
@@ -94,6 +119,6 @@ class StudentController extends Controller
         Student::create($validated);
 
 
-        return redirect()->route('student.index')->with('success', 'تمت إضافة الطالب بنجاح ✅');
+        return redirect()->route('student.index')->with('success', 'Student added successfully ✅');
     }
 }

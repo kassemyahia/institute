@@ -47,15 +47,27 @@
       </div>
 
       <form method="GET" action="{{ route('employee.index') }}" class="mb-3">
-        <div class="input-group">
-          <input
-            type="search"
-            name="q"
-            value="{{ $search ?? '' }}"
-            class="form-control"
-            placeholder="Search employees by name or job"
-          />
-          <button class="btn btn-outline-dark" type="submit">Search</button>
+        <div class="row g-2">
+          <div class="col-md-6">
+            <input
+              type="search"
+              name="q"
+              value="{{ $search ?? '' }}"
+              class="form-control"
+              placeholder="Search employees by name or job"
+            />
+          </div>
+          <div class="col-md-4">
+            <select name="job" class="form-select">
+              <option value="">All job titles</option>
+              @foreach ($jobTitles as $title)
+                <option value="{{ $title }}" @selected(($jobTitle ?? '') === $title)>{{ $title }}</option>
+              @endforeach
+            </select>
+          </div>
+          <div class="col-md-2 d-grid">
+            <button class="btn btn-outline-dark" type="submit">Filter</button>
+          </div>
         </div>
       </form>
 

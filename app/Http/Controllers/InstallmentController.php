@@ -45,6 +45,6 @@ class InstallmentController extends Controller
 
         Installment::create($validated);
 
-        return redirect()->route('installment.index')->with('success', 'تم إضافة الدفعة بنجاح ✅');
+        return redirect()->route('installment.index')->with('success', 'Installment added successfully ✅');
     }
 }

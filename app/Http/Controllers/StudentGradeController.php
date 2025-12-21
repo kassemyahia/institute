@@ -34,6 +34,6 @@ class StudentGradeController extends Controller
 
         StudentGrade::create($validated);
 
-        return redirect()->route('student_grade.index')->with('success', 'تم تسجيل الدرجة بنجاح ✅');
+        return redirect()->route('student_grade.index')->with('success', 'Grade recorded successfully ✅');
     }
 }

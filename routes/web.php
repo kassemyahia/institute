@@ -1,9 +1,11 @@
 <?php
 
 use App\Http\Controllers\EmployeeController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\InstallmentController;
 use App\Http\Controllers\MobileNumberController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SubjectController;
 use App\Http\Controllers\StudentController;
 use Illuminate\Support\Facades\Route;
 
@@ -14,8 +16,15 @@ Route::middleware('guest')->group(function () {
 require __DIR__.'/auth.php';
 
 Route::middleware('auth')->group(function () {
-    Route::view('/home', 'home')->name('home');
-    Route::view('/dashboard', 'home')->name('dashboard');
+    Route::get('/home', [HomeController::class, 'index'])->name('home');
+    Route::get('/dashboard', [HomeController::class, 'index'])->name('dashboard');
+    Route::get('/classrooms', [HomeController::class, 'classrooms'])->name('classrooms.index');
+    Route::post('/classrooms/stages', [HomeController::class, 'storeStage'])->name('stage.store');
+    Route::post('/classrooms/sections', [HomeController::class, 'storeSection'])->name('section.store');
+    Route::get('/subjects', [SubjectController::class, 'index'])->name('subject.index');
+    Route::get('/subjects/create', [SubjectController::class, 'create'])->name('subject.create');
+    Route::post('/subjects', [SubjectController::class, 'store'])->name('subject.store');
+    Route::delete('/subjects/{subject}', [SubjectController::class, 'destroy'])->name('subject.destroy');
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');

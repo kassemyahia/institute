@@ -28,6 +28,6 @@ class SectionController extends Controller
 
         Section::create($validated);
 
-        return redirect()->route('section.index')->with('success', 'تمت إضافة الشعبة بنجاح ✅');
+        return redirect()->route('section.index')->with('success', 'Section added successfully ✅');
     }
 }

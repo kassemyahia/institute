@@ -10,16 +10,15 @@ class SubjectController extends Controller
 {
     public function index()
     {
-        $subjects = Subject::with('section')->get();
+        $subjects = Subject::with('section.stage')->orderBy('name')->get();
+        $sections = Section::with('stage')->orderBy('name')->get();
 
-        return view('subject.index', compact('subjects'));
+        return view('subject.index', compact('subjects', 'sections'));
     }
 
     public function create()
     {
-        $sections = Section::all();
-
-        return view('subject.create', compact('sections'));
+        return redirect()->route('subject.index');
     }
 
     public function store(Request $request)
@@ -31,6 +30,18 @@ class SubjectController extends Controller
 
         Subject::create($validated);
 
-        return redirect()->route('subject.index')->with('success', 'تمت إضافة المادة بنجاح ✅');
+        return redirect()->route('subject.index')->with('success', 'Subject added successfully ✅');
+    }
+
+    public function destroy(Subject $subject)
+    {
+        // Clean up related pivot records before deleting the subject
+        $subject->students()->detach();
+        $subject->employees()->detach();
+        $subject->grades()->delete();
+
+        $subject->delete();
+
+        return redirect()->route('subject.index')->with('success', 'Subject deleted successfully ❌');
     }
 }
