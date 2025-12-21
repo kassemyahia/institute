@@ -117,11 +117,13 @@
 
         <div class="col-lg-3 col-md-6">
           <div class="card shadow-sm h-100">
-            <div class="card-body">
+            <div class="card-body d-flex flex-column">
               <h5 class="card-title">Payments</h5>
               <p class="card-text">Manage payments</p>
-              <a href="{{ route('installment.index') }}" class="btn btn-dark btn-sm">View Payments</a>
-              <a href="{{ route('installment.create') }}" class="btn btn-outline-dark btn-sm">Add Payment</a>
+              <div class="mt-auto d-flex gap-2 flex-wrap">
+                <a href="{{ route('installment.create') }}" class="btn btn-dark btn-sm">Add Payment</a>
+                <a href="{{ route('installment.index') }}" class="btn btn-outline-dark btn-sm">View</a>
+              </div>
             </div>
           </div>
         </div>
@@ -145,6 +147,30 @@
               <p class="card-text">View and create subjects.</p>
               <div class="mt-auto">
                 <a href="{{ route('subject.index') }}" class="btn btn-dark btn-sm">Open</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6">
+          <div class="card shadow-sm h-100">
+            <div class="card-body d-flex flex-column">
+              <h5 class="card-title">Top Students</h5>
+              <p class="card-text">Rank students by average grade.</p>
+              <div class="mt-auto">
+                <a href="{{ route('top_students.index') }}" class="btn btn-dark btn-sm">Open</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6">
+          <div class="card shadow-sm h-100">
+            <div class="card-body d-flex flex-column">
+              <h5 class="card-title">Grades</h5>
+              <p class="card-text">Register or review student grades.</p>
+              <div class="mt-auto">
+                <a href="{{ route('student_grade.index') }}" class="btn btn-dark btn-sm">Open</a>
               </div>
             </div>
           </div>

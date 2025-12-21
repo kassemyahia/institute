@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Student;
 use App\Models\Section;
 use App\Models\Stage;
+use App\Models\StudentGrade;
 
 class StudentController extends Controller
 {
@@ -116,7 +117,18 @@ class StudentController extends Controller
 
         $validated['registration_date'] = $validated['registration_date'] ?? now()->toDateString();
 
-        Student::create($validated);
+        $student = Student::create($validated);
+
+        $sectionSubjects = Section::with('subjects')->find($student->section_id)?->subjects ?? collect();
+        foreach ($sectionSubjects as $subject) {
+            StudentGrade::firstOrCreate(
+                [
+                    'student_id' => $student->id,
+                    'subject_id' => $subject->id,
+                ],
+                ['score' => null]
+            );
+        }
 
 
         return redirect()->route('student.index')->with('success', 'Student added successfully ✅');

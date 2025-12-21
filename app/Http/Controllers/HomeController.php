@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Stage;
 use App\Models\Section;
+use App\Models\Student;
+use Illuminate\Support\Collection;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -41,6 +43,56 @@ class HomeController extends Controller
         Section::create($validated);
 
         return redirect()->route('classrooms.index')->with('success', 'Section created successfully ✅');
+    }
+
+    public function topStudents(Request $request)
+    {
+        $stageId = $request->query('stage_id');
+        $sectionId = $request->query('section_id');
+
+        $stages = Stage::with(['sections' => function ($query) {
+                $query->orderBy('name');
+            }])
+            ->orderBy('name')
+            ->get();
+
+        $students = Student::query()
+            ->with(['section.stage', 'grades'])
+            ->when($stageId, function ($query) use ($stageId) {
+                $query->where('stage_id', $stageId);
+            })
+            ->when($sectionId && $stageId, function ($query) use ($sectionId) {
+                $query->where('section_id', $sectionId);
+            })
+            ->get()
+            ->map(function ($student) {
+                $scores = $student->grades->pluck('score')->filter(function ($score) {
+                    return $score !== null;
+                });
+                $average = $scores->count() ? round($scores->avg(), 2) : 0;
+                $student->average_score = $average;
+                $student->grades_count = $scores->count();
+                return $student;
+            })
+            ->sortByDesc('average_score')
+            ->values();
+
+        $activeStageId = $stageId ?? ($stages->first()?->id);
+        $sections = $activeStageId
+            ? ($stages->firstWhere('id', (int) $activeStageId)?->sections ?? collect())
+            : collect();
+
+        $sectionOptions = $stages->flatMap(function ($stage) {
+            return $stage->sections->map(function ($section) {
+                return [
+                    'id' => $section->id,
+                    'name' => $section->name,
+                    'stage_id' => $section->stage_id,
+                ];
+            });
+        });
+
+        return view('top_students', compact('stages', 'students', 'activeStageId', 'sectionId', 'sections', 'sectionOptions'));
     }
 
     private function buildClassroomData()
